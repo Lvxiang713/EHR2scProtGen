@@ -53,16 +53,16 @@ This project implements:
 
 ## Usage
 1. Create a new Conda environment 
-   ```
-   conda create -n ehr2scprotgen python=3.9.18
-   conda activate ehr2scprotgen
-   pip install -r requirements.txt
-   ```
+```
+conda create -n ehr2scprotgen python=3.9.18
+conda activate ehr2scprotgen
+pip install -r requirements.txt
+```
  2. Run the generation script
-   ```
-   python generate.py
-   ```
-   Then you will get the synthesized data in the sampled_cells folder.
+```
+python generate.py
+```
+Then you will get the synthesized data in the sampled_cells folder.
 
 ---
 ## Example Notebook
