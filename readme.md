@@ -3,6 +3,8 @@
 A PyTorch-based pipeline for generating single-cell protein expression profiles conditioned on electronic health record (EHR) embeddings, combining a CLIP‐style contrastive learning with a Gaussian diffusion model.
 
 ---
+<img width="7874" height="10236" alt="Figure1拼接" src="https://github.com/user-attachments/assets/381b0974-d927-4f90-98bf-7387188bf4fb" />
+
 
 ## Table of Contents
 
@@ -18,15 +20,16 @@ A PyTorch-based pipeline for generating single-cell protein expression profiles 
 
 This project implements:
 
-1. **Contrastive  learning model structure**  
-   - Learns joint embeddings of EHR vectors and single-cell protein profiles.  
+1. Contrastive learning model structure  
+   Learns joint embeddings of EHR vectors and single-cell protein profiles.  
 
-2. **Diffusion model **  
-   - A scAtt-Net operating on per‐cell protein features, with timestep embeddings and cross‐attention conditioning on EHR..
+2. Diffusion model  
+   A scAtt-Net operating on per‐cell protein features, with timestep embeddings and cross‐attention conditioning on EHR..
    
    ---
 
-## Repository Structure
+## Repository Structure\
+```
 ├── checkpoints/ # Saved model checkpoints
 ├── configs/
 │ ├── contrastive.yaml # Contrastive  learning model settings
@@ -45,17 +48,17 @@ This project implements:
 ├── requirements.txt # enviroment package
 ├── README.md
 └── generate.py # generation script
-
+```
 ---
 
 ## Usage
-1. **Create a new Conda environment**  
+1. Create a new Conda environment 
    ```
    conda create -n ehr2scprotgen python=3.9.18
    conda activate ehr2scprotgen
    pip install -r requirements.txt
    ```
- 2. **Run the generation script**
+ 2. Run the generation script
    ```
    python generate.py
    ```
