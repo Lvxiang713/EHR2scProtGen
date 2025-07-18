@@ -1,0 +1,41 @@
+# Data file paths
+data:
+  ehr_csv:   "../yourEHRpath"        # Path to merged EHR CSV file
+  sc_csv:    "../yourSinglecellPath"   # Path to CyTOF single-cell CSV file
+  diag_csv:  "../yourlabelPath"                    # Path to clinical diagnosis Excel
+
+# CLIP encoder configuration and checkpoint
+clip_cfg:   "configs/contrastive.yaml"          # Path to the contrastive-training YAML for CLIP
+clip_ckpt:  "checkpoints/CLcheckpointDir/bestCL_model.pth"  # Path to the pretrained CLIP model weights
+
+# How to split dataset into train/validation
+initial_split:      1400                                        # Number of samples reserved for train+val split 
+train_val_ratio:    0.7                                         # Fraction of split used for training (rest for validation)
+
+training:
+  batch_size:         1                                          # Number of samples per batch
+  learning_rate:      1e-4                                       # Learning rate for the optimizer
+  epochs:             1000                                       # Maximum number of training epochs
+  early_stop_patience: 30                                        # Stop if no val improvement for this many epochs
+  ckpt_dir:           "../../checkpoints/diffusion_ckpt"                         # Directory to save diffusion checkpoints
+
+# Diffusion process hyperparameters
+diffusion:
+  timesteps:          1000                                       # Number of diffusion timesteps
+
+# SingleCellAN (diffusion model) hyperparameters
+model:
+  feature_dims:       36                                         # Number of features per cell
+  EHR_embdims:        128                                        # Dimension of EHR embeddings (overwritten by CLIP out_dim)
+  model_dims:         128                                        # Base channel dimension for U-Net
+  dims_mult:          [1, 2, 2, 2, 2]                            # Channel multipliers at each U-Net level
+  num_res_blocks:     2                                          # Number of residual blocks per level
+  attention_resolutions: [2, 4, 8, 16]                          # Resolutions at which to apply attention
+  dropout:            0.0                                        # Dropout rate in residual blocks
+  dropout_att:        0.1                                        # Dropout rate in attention layers
+  num_heads:          4                                          # Number of heads in multihead attention
+
+evaluation:
+  num_cells_total:     1000                                       # Total cells to generate per donor
+  cell_num_per_sample: 1000                                       # Cells generated per sampling call
+  sample_dir:          "../../checkpoints/diffusion_ckpt/sampled_cells"      # Where to save generated .npy files

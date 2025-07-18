@@ -1,0 +1,46 @@
+# configs/contrastive.yaml
+
+# Paths to input data files
+data:
+  ehr_csv:   "../yourEHRpath"        # Path to merged EHR CSV file
+  sc_csv:    "../yourSinglecellPath"   # Path to CyTOF single-cell CSV file
+  diag_csv:  "../yourlabelPath"                    # Path to clinical diagnosis Excel
+
+# How to split the dataset into train / validation / test
+initial_split: 1400      
+train_val_ratio: 0.7    
+
+# Training schedule and optimization hyperparameters
+batch_size: 16            # Number of samples per GPU batch
+learning_rate: 1e-4       # Adam optimizer learning rate
+num_epochs: 1000          # Maximum training epochs
+early_stop_patience: 30   # Stop training if val loss does not improve for n epochs
+
+# Contrastive loss configuration (NT-Xent)
+temperature: 0.07         # Softmax temperature for contrastive similarity
+
+# Weighted‐label classification head
+soft_value: 0.6           # Weight for true class in soft labels
+
+# Vision encoder (CyTOF) settings
+vision:
+  in_channels:     36      # Number of CyTOF features per cell
+  out_dim:         null    # Out_dim (set at runtime from dataset)
+  width:           128     # Embedding dimension for vision tokens
+  quantile_len:    256     # Number of quantile tokens per sample
+  depth:           4       # Number of Transformer layers in vision branch
+  heads:           8       # Number of attention heads in vision Transformer
+  mlp_ratio:       4.0     # Feed-forward expansion ratio in vision Transformer
+  dropout:         0.1     # Dropout rate in vision branch
+  cut_len:         16      # Height/width of each sliding patch
+  cut_step:        16      # Stride between patches along each axis
+  cnn_depth:       4       # Number of CNN blocks before patch embedding
+  cnn_hidden:      32      # Number of channels in each CNN block
+  cnn_kernel_size: 3       # Convolution kernel size in CNN blocks
+
+# Text encoder (EHR Transformer) settings
+text:
+  feature_dim:       null   # Number of EHR numeric features per patient (set at runtime)
+  transformer_width: 256    # Hidden size of text Transformer
+  transformer_heads: 8      # Number of attention heads in text Transformer
+  transformer_layers: 6     # Number of Transformer layers in text branch
